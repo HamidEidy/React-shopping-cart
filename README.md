@@ -1,3 +1,9 @@
+
+![1](https://github.com/HamidEidy/React-shopping-cart/assets/148962898/dcdcf497-4133-49e5-96ee-e58b0573380e)
+
+![2](https://github.com/HamidEidy/React-shopping-cart/assets/148962898/335358b0-207a-4da9-bed6-75104f4a3353)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
