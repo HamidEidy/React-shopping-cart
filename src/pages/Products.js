@@ -20,6 +20,10 @@ function Products(props) {
 
   const totalPages = 6;
 
+
+
+
+  
   return (
     <div
       dir="rtl"
