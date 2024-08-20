@@ -20,10 +20,6 @@ function Products(props) {
 
   const totalPages = 6;
 
-
-
-
-  
   return (
     <div
       dir="rtl"
@@ -35,13 +31,13 @@ function Products(props) {
         justifyContent: "center",
         flexDirection: "column",
         direction: "rtl",
+        position: "absolute",
       }}>
       <div
         style={{
           display: "flex",
           alignItems: "center",
           gap: "10px",
-          marginTop: "20px",
         }}>
         <p
           style={{

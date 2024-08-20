@@ -1,48 +1,79 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Products from "./pages/Products";
 
 function App() {
-// const [books, setBooks] = useState([])
-// useEffect(() => {
-// setBooks()
+  const data = {
+    Books: [
+      {
+        _id: "66c3055ef1466acf04731b76",
+        title: "رهاورد خدمت",
+        created_at: "2024-08-13T08:58:33.656Z",
+        updated_at: "2024-08-13T08:58:33.656Z",
+        __v: 0,
+        url: "https://ostan-mr.ir/uploads/books/tumb.jpg",
+        id: "66c3055ef1466acf04731b76",
+      },
+    ],
+  };
 
+  const [status, setStatus] = useState(false);
+  const modalRef = useRef(null);
 
+  const openBook = () => {
+    setStatus(true);
+  };
 
-// }, [])
-const data = {
-	"Books": [
-		{
-			"_id": "66c3055ef1466acf04731b76",
-			"title": "رهاورد خدمت",
-			"created_at": "2024-08-13T08:58:33.656Z",
-			"updated_at": "2024-08-13T08:58:33.656Z",
-			"__v": 0,
-			"url": "https://ostan-mr.ir/uploads/books/tumb.jpg",
-			"id": "66c3055ef1466acf04731b76"
-		}
-	]
-};
-const [status, setStatus] = useState(false)
-const openBook = (e) => {
-  e.stopPropagation()
-  e.preventDefault();
-  setStatus(true)
-}
-const closeBook = (e) => {
-e.stopPropagation();
-e.preventDefault();
-setStatus(false)
-}
+  const closeBook = () => {
+    setStatus(false);
+  };
+
+  // Handle clicks outside of the modal to close it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target)
+      ) {
+        closeBook();
+      }
+    };
+
+    if (status) {
+      document.addEventListener(
+        "mousedown",
+        handleClickOutside
+      );
+    } else {
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
+    }
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
+    };
+  }, [status]);
+
   return (
-<div onClick={closeBook}>
-{ data.Books.map((item) => (
-  <p onClick={openBook}>{ item.title }</p>
-)) }
+    <div>
+      {data.Books.map((item) => (
+        <p key={item._id} onClick={openBook}>
+          {item.title}
+        </p>
+      ))}
 
-{ status && <Products /> }
-
-
-</div>
+      {status && (
+        <div className="modal-overlay">
+          <div className="modal-content" ref={modalRef}>
+            <Products />
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
