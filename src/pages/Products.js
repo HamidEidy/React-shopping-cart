@@ -1,55 +1,49 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"
-import Swal from "sweetalert2";
-import { addToCart } from "../redux/cart/action";
-import { getProducts } from "../redux/products/action"
 
-const Products = () => {
-    const { products } = useSelector((state => state.product))
-    const dispatch = useDispatch();
+import HTMLFlipBook from "react-pageflip";
 
-    const handleAddToCart = (product) => {
-        dispatch(addToCart(product))
-        Swal.fire({
-            title: "Product added",
-            icon: "success",
-            showConfirmButton: false,
-            timerProgressBar: true,
-            timer: 3000,
-            toast: true,
-            position: 'top',
-        });
-    }
+function Products(props) {
 
-    useEffect(() => {
-        dispatch(getProducts())
-    }, [dispatch]);
-    
+
+
     return (
-        <div className="container">
-            <div className="row mt-5 g-3">
-                {products && products.map(product => (
-                    <div className="col-md-3" key={product.id} >
-                        <div className="card">
-                            <img className="card-img-top" src={product.image} alt="..." />
-                            <div className="card-body">
-                                <h5 className="card-title">{product.name}</h5>
-                                <p className="card-text">
-                                    {product.description}
-                                </p>
-                            </div>
-                            <div className="card-footer d-flex justify-content-between">
-                                <button onClick={() => handleAddToCart(product)} className="btn btn-sm btn-outline-success">
-                                    Add to cart
-                                </button>
-                                <span>{product.price}</span>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
+        <div dir="rtl">
+            <p onClick={next}>بعدی</p>
+        <HTMLFlipBook
+        startZIndex={2}
+        ref="book"
+        width={300} height={500}
+        direction="rtl"
+        showCover="false"
+        >
+            <div className="demoPage h-[100%]">    1   <img
+                src="https://ostan-mr.ir/uploads/books/tumb.jpg"
+                alt="..."
+                className="img-fluid h-[100%]"
+            /></div>
+                     <div className="demoPage">       <img
+                src="https://ostan-mr.ir/uploads/books/tumb.jpg"
+                alt="..."
+                className="img-fluid"
+            /></div>
+                      <div className="demoPage">       <img
+                src="https://ostan-mr.ir/uploads/books/tumb.jpg"
+                alt="..."
+                className="img-fluid"
+            /></div>
+                      <div className="demoPage">       <img
+                src="https://ostan-mr.ir/uploads/books/tumb.jpg"
+                alt="..."
+                className="img-fluid"
+            /></div>
+                      <div className="demoPage">       <img
+                src="https://ostan-mr.ir/uploads/books/tumb.jpg"
+                alt="..."
+                className="img-fluid"
+            /></div>
+        </HTMLFlipBook>
+
         </div>
-    )
+    );
 }
 
 export default Products;

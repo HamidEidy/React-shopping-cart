@@ -1,0 +1,6 @@
+.stf__block div:nth-last-child(2){
+display: block !important;
+}
+.stf__block div:nth-last-child(1){
+    display: block !important;
+    }
