@@ -1,10 +1,11 @@
-.stf__block div:nth-last-child(2) {
-  display: block !important;
-}
-.stf__block div:nth-last-child(1) {
-  display: block !important;
-}
 
+@font-face {
+  font-family: 'Vazir';
+  src: url('./Vazir-Regular-FD.woff2');
+}
+body{
+  font-family: 'Vazir';
+}
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -13,13 +14,83 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  position: relative;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  position: absolute;
+  top: 280px;
+}
+@media (min-width: 768px) {
+  .container{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+@media (min-width: 1280px) {
+  .container{
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  }
+}
+.container{
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+  }
+  .content p:hover{
+    color: black;
+    transition: 0.5s;
+  }
+.content img{
+  width: 175px;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.075), 0 3px 10px 0 rgba(0, 0, 0, 0.088);
+}
+.content p {
+  margin-top: 8px;
+  font-weight: 500;
+  color: rgb(107, 106, 106);
+}
+@media(min-width: 800px){
+  .control{
+    display: none !important;
+    margin-top: 10px !important;
+  }
+}
+.nextBtn{
+  transform: rotate(180deg);
+}
+.control{
+  display: flex;
+  width: 100%;
+  padding: 0px 80px;
+}
+.bookCover{
+  height: 200px;
+  width: 100px;
+}
+.page-image{
+  width: 100%;
+  height: 100%;
+}
+.--left div{
+  background-position: 100% 0%;
+  background-size: 200% 100%;
+}
+
+.--right div {
+  background-size: 200% 100%;
+    background-position: 100% 0%;
 }

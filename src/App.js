@@ -12,14 +12,16 @@ function App() {
         __v: 0,
         url: "https://ostan-mr.ir/uploads/books/tumb.jpg",
         id: "66c3055ef1466acf04731b76",
-      },
+      }
     ],
   };
 
   const [status, setStatus] = useState(false);
   const modalRef = useRef(null);
 
-  const openBook = () => {
+  const openBook = (id) => {
+    console.log(id);
+    
     setStatus(true);
   };
 
@@ -59,17 +61,20 @@ function App() {
   }, [status]);
 
   return (
-    <div>
+    <div className="container">
       {data.Books.map((item) => (
-        <p key={item._id} onClick={openBook}>
+        <div className="content"  onClick={()=>openBook(item._id)}>
+       <img src={item.url} className="bookCover" />
+        <p key={item._id}>
           {item.title}
         </p>
+        </div>
       ))}
 
       {status && (
         <div className="modal-overlay">
           <div className="modal-content" ref={modalRef}>
-            <Products />
+            <Products setStatus={setStatus} />
           </div>
         </div>
       )}
