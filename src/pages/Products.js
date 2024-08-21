@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import HTMLFlipBook from "react-pageflip";
 
 function Products(props) {
@@ -20,17 +20,18 @@ function Products(props) {
   const closeBook = () => {
     if (bookRef.current) {
       // bookRef.current.pageFlip().flipClose();
-      props.setStatus(false)
+      props.setStatus(false);
     }
-  }
+  };
   const pages = {
-    "Books": [
+    Books: [
       {
-        "slides": [
-          "https://ostan-mr.ir/uploads/books/rahavard/rahavard-5.jpg",
-          "https://ostan-mr.ir/uploads/books/rahavard/rahavard-5.jpg",
-          "https://ostan-mr.ir/uploads/books/rahavard/rahavard-5.jpg",
-          "https://ostan-mr.ir/uploads/books/rahavard/rahavard-5.jpg",
+        slides: [
+          "https://ostan-mr.ir/uploads/books/tumb.jpg",
+          "https://ostan-mr.ir/uploads/books/rahavard/rahavard-2.jpg",
+          "https://ostan-mr.ir/uploads/books/rahavard/rahavard-2.jpg",
+          "https://ostan-mr.ir/uploads/books/rahavard/rahavard-3.jpg",
+          "https://ostan-mr.ir/uploads/books/rahavard/rahavard-3.jpg",
           "https://ostan-mr.ir/uploads/books/rahavard/rahavard-4.jpg",
           "https://ostan-mr.ir/uploads/books/rahavard/rahavard-4.jpg",
           "https://ostan-mr.ir/uploads/books/rahavard/rahavard-5.jpg",
@@ -390,24 +391,46 @@ function Products(props) {
           "https://ostan-mr.ir/uploads/books/rahavard/rahavard-182.jpg",
           "https://ostan-mr.ir/uploads/books/rahavard/rahavard-182.jpg",
           "https://ostan-mr.ir/uploads/books/rahavard/rahavard-183.jpg",
-          "https://ostan-mr.ir/uploads/books/rahavard/rahavard-183.jpg"
+          "https://ostan-mr.ir/uploads/books/rahavard/rahavard-183.jpg",
         ],
-        "_id": "66c3055ef1466acf04731b76",
-        "title": "رهاورد خدمت",
-        "created_at": "2024-08-13T08:58:33.656Z",
-        "updated_at": "2024-08-13T08:58:33.656Z",
-        "__v": 0,
-        "url": "https://ostan-mr.ir/uploads/books/tumb.jpg",
-        "id": "66c3055ef1466acf04731b76"
-      }
-    ]
-  }
-  console.log('pages', pages.Books[0].slides.length);
-  const showReverse = pages.Books[0].slides.reverse()
+        _id: "66c3055ef1466acf04731b76",
+        title: "رهاورد خدمت",
+        created_at: "2024-08-13T08:58:33.656Z",
+        updated_at: "2024-08-13T08:58:33.656Z",
+        __v: 0,
+        url: "https://ostan-mr.ir/uploads/books/tumb.jpg",
+        id: "66c3055ef1466acf04731b76",
+      },
+    ],
+  };
+  const showReverse = pages.Books[0].slides.reverse();
   // const val = showReverse.unshift('')
-  console.log('val', showReverse);
 
   const totalPages = pages.Books[0].slides.length;
+
+  // const [width, setWidth] = useState(window.innerWidth);
+  // const [uniqueList, setUniqueList] = useState([]);
+
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setWidth(window.innerWidth);
+  //   };
+
+  //   window.addEventListener("resize", handleResize);
+
+  //   if (width < 780) {
+  //     const myList = pages.Books[0].slides; // Access the slides array directly
+  //     const uniqueSet = new Set(myList); // Create a Set to remove duplicates
+  //     setUniqueList(Array.from(uniqueSet)); // Convert the Set back to an array
+  //   } else {
+  //     setUniqueList([]); // Handle as needed when width is not less than 780px
+  //   }
+
+  //   return () =>
+  //     window.removeEventListener("resize", handleResize);
+  // }, [width]);
+
+  // console.log(uniqueList.length);
 
   return (
     <div
@@ -427,22 +450,19 @@ function Products(props) {
         ref={bookRef}
         width={400}
         height={500}
-        showCover={true} // showCover should be a boolean, not a string
-        startPage={363}>
-
+        showCover={false} // showCover should be a boolean, not a string
+        startPage={totalPages - 1}>
         {pages.Books[0].slides.map((item, index) => (
-
           <div className="demoPage" key={index}>
-
-            <div className="page-image" style={{ backgroundImage: `url(${item})` }}>
-
-            </div>
-
+            <div
+              className="page-image"
+              style={{
+                backgroundImage: `url(${item})`,
+              }}></div>
           </div>
-
         ))}
 
-{/* 
+        {/* 
 <div className="demoPage">
           <img
             src="https://ostan-mr.ir/uploads/books/rahavard/rahavard-183.jpg"
@@ -514,8 +534,6 @@ function Products(props) {
             }}
           />
         </div> */}
-        
-     
       </HTMLFlipBook>
 
       <div
@@ -526,45 +544,97 @@ function Products(props) {
           justifyContent: "space-between",
           gap: "10px",
           marginTop: "10px",
-          zIndex: "10000"
+          zIndex: "10000",
         }}>
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            gap: "30px"
+            gap: "30px",
           }}>
           <svg
             onClick={goToPrevPage}
-            width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14.43 5.92993L20.5 11.9999L14.43 18.0699" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M3.5 12H20.33" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M14.43 5.92993L20.5 11.9999L14.43 18.0699"
+              stroke="#292D32"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M3.5 12H20.33"
+              stroke="#292D32"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
-
 
           <svg
             className="nextBtn"
             onClick={goToNextPage}
-            width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14.43 5.92993L20.5 11.9999L14.43 18.0699" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M3.5 12H20.33" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M14.43 5.92993L20.5 11.9999L14.43 18.0699"
+              stroke="#292D32"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M3.5 12H20.33"
+              stroke="#292D32"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
-
-
-
         </div>
 
         <svg
           onClick={closeBook}
-          width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M9.16998 14.8299L14.83 9.16992" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M14.83 14.8299L9.16998 9.16992" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
+            stroke="#292D32"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M9.16998 14.8299L14.83 9.16992"
+            stroke="#292D32"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M14.83 14.8299L9.16998 9.16992"
+            stroke="#292D32"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
-
       </div>
-
     </div>
   );
 }
